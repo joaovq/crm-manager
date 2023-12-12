@@ -11,16 +11,17 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Customer {
+    private static final Long serialVersionId = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
     @Column(name = "customer_first_name", nullable = false)
-    private  String firstName;
+    private String firstName;
     @Column(name = "customer_last_name", nullable = false)
-    private  String lastName;
+    private String lastName;
     @Column(name = "customer_cpf", unique = true, nullable = false)
-    private  String cpf;
+    private String cpf;
 
     public Customer() {
     }

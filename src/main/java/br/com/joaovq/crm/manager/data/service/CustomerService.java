@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,5 +31,10 @@ public class CustomerService implements CustomerUseCase {
     public Customer getCustomerById(UUID id) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
         return optionalCustomer.orElseThrow(CustomerNotFoundException::new);
+    }
+
+    @Override
+    public Collection<Customer> searchCustomerByName(String name) {
+        return customerRepository.searchByQuery(name);
     }
 }
