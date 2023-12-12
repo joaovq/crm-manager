@@ -1,8 +1,8 @@
 package br.com.joaovq.crm.manager.data.service;
 
 import br.com.joaovq.crm.manager.core.exception.CustomerNotFoundException;
-import br.com.joaovq.crm.manager.data.repository.CustomerRepository;
 import br.com.joaovq.crm.manager.data.models.Customer;
+import br.com.joaovq.crm.manager.data.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
