@@ -37,7 +37,7 @@ public class CustomerResource {
         return ResponseEntity.ok(customerService.listAllCustomers(pageable));
     }
 
-    @PostMapping
+    @PostMapping(produces = {"application/json"}, consumes = {"application/json"})
     public ResponseEntity<CustomerResponse> createCustomer(@Valid @RequestBody CustomerCreateRequest customerCreateRequest) {
         Customer customer = customerService.createCustomer(customerCreateRequest.toEntity());
         return ResponseEntity.ok(CustomerResponse.toResponse(customer));
