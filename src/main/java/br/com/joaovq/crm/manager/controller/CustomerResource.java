@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -40,7 +41,7 @@ public class CustomerResource {
     @PostMapping(produces = {"application/json"}, consumes = {"application/json"})
     public ResponseEntity<CustomerResponse> createCustomer(@Valid @RequestBody CustomerCreateRequest customerCreateRequest) {
         Customer customer = customerService.createCustomer(customerCreateRequest.toEntity());
-        return ResponseEntity.ok(CustomerResponse.toResponse(customer));
+        return ResponseEntity.created(URI.create("v1/customer"+"/"+customer.getId())).build();
     }
 
     @GetMapping(value = "{id}")
