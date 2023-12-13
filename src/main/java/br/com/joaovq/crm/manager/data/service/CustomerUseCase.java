@@ -12,4 +12,5 @@ public interface CustomerUseCase {
     Customer createCustomer(Customer customer);
     Customer getCustomerById(UUID id);
     Collection<Customer> searchCustomerByName(String name);
+    void deleteCustomer(UUID id);
 }

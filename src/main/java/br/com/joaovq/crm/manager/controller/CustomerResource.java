@@ -1,6 +1,8 @@
 package br.com.joaovq.crm.manager.controller;
 
+import br.com.joaovq.crm.manager.data.models.Address;
 import br.com.joaovq.crm.manager.data.models.Customer;
+import br.com.joaovq.crm.manager.data.service.AddressUseCase;
 import br.com.joaovq.crm.manager.data.service.CustomerUseCase;
 import br.com.joaovq.crm.manager.domain.request.CustomerCreateRequest;
 import br.com.joaovq.crm.manager.domain.response.CustomerResponse;
@@ -26,6 +28,8 @@ public class CustomerResource {
 
     @Autowired
     private CustomerUseCase customerService;
+    @Autowired
+    private AddressUseCase addressService;
 
     @GetMapping(value = "search")
     public ResponseEntity<Collection<CustomerResponse>> search(@RequestParam(name = "query", defaultValue = "") String name) {
@@ -34,20 +38,27 @@ public class CustomerResource {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Customer>> getAllCustomers(@ParameterObject Pageable pageable) {
-        return ResponseEntity.ok(customerService.listAllCustomers(pageable));
+    public ResponseEntity<Page<CustomerResponse>> getAllCustomers(@ParameterObject Pageable pageable) {
+        return ResponseEntity.ok(customerService.listAllCustomers(pageable).map(CustomerResponse::toResponse));
     }
 
     @PostMapping(produces = {"application/json"}, consumes = {"application/json"})
     public ResponseEntity<CustomerResponse> createCustomer(@Valid @RequestBody CustomerCreateRequest customerCreateRequest) {
-        Customer customer = customerService.createCustomer(customerCreateRequest.toEntity());
-        return ResponseEntity.created(URI.create("v1/customer"+"/"+customer.getId())).build();
+        Address address = addressService.createAddress(customerCreateRequest.address().toEntity());
+        Customer customer = customerService.createCustomer(customerCreateRequest.toEntity(address));
+        return ResponseEntity.created(URI.create("v1/customer" + "/" + customer.getId())).build();
     }
 
     @GetMapping(value = "{id}")
     public ResponseEntity<CustomerResponse> getById(@PathVariable UUID id) {
         Customer customer = customerService.getCustomerById(id);
         return ResponseEntity.ok(CustomerResponse.toResponse(customer));
+    }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable UUID id) {
+        customerService.deleteCustomer(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

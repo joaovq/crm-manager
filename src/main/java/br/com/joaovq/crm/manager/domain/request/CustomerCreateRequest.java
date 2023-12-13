@@ -1,5 +1,6 @@
 package br.com.joaovq.crm.manager.domain.request;
 
+import br.com.joaovq.crm.manager.data.models.Address;
 import br.com.joaovq.crm.manager.data.models.Customer;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -15,14 +16,17 @@ public record CustomerCreateRequest(
         @NotEmpty
         @NotNull
         @CPF
-        String cpf
+        String cpf,
+        @NotNull
+        CreateAddressRequest address
 ) {
-    public Customer toEntity() {
+    public Customer toEntity(Address address) {
         return new Customer(
                 null,
                 this.firstName,
                 this.lastName,
-                this.cpf
+                this.cpf,
+                address
         );
     }
 }

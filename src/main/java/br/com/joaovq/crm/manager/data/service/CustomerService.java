@@ -37,4 +37,14 @@ public class CustomerService implements CustomerUseCase {
     public Collection<Customer> searchCustomerByName(String name) {
         return customerRepository.searchByQuery(name);
     }
+
+    @Override
+    public void deleteCustomer(UUID id) {
+        boolean customerExists = customerRepository.existsById(id);
+        if (customerExists) {
+            customerRepository.deleteById(id);
+            return;
+        }
+        throw new CustomerNotFoundException();
+    }
 }
