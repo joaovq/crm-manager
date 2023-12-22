@@ -2,9 +2,17 @@ files:
   upload-dir: /upload
 server:
   port: ${PORT:9456}
+  servlet:
+    context-path: /resource-server-jwt
 spring:
+  security:
+    oauth2:
+      resourceserver:
+         jwt:
+           jws-algorithms: RS512
+           issuer-uri: https://idp.example.com/issuer
   datasource:
-    url: ${DB_URL:jdbc:h2:file:./data/manager_crm}
+    url: ${DB_URL:jdbc:h2:file:./tmp/manager_crm}
     username: ${DB_USERNAME:joaovq}
     password: ${DB_PASSWORD:}
     driverClassName: org.h2.Driver
