@@ -22,13 +22,14 @@ public class User implements UserDetails {
     private String id;
     @Column(length = 30, unique = true, nullable = false)
     private String username;
-    @Column(length = 18, nullable = false)
+
+    @Column(nullable = false)
     private String password;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "user_role", nullable = false)
-    private UserRole role;
+    private UserRole role = UserRole.USER;
     @Column(name = "user_active")
-    private Boolean isActive;
+    private Boolean isActive = true;
     @Column(name = "user_email", length = 30, unique = true)
     private String email;
 
@@ -53,7 +54,7 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
@@ -63,17 +64,17 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override

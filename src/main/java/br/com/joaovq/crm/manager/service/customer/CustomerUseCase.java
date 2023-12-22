@@ -1,4 +1,4 @@
-package br.com.joaovq.crm.manager.service;
+package br.com.joaovq.crm.manager.service.customer;
 
 import br.com.joaovq.crm.manager.data.models.Customer;
 import org.springframework.data.domain.Page;

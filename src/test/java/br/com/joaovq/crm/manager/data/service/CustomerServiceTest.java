@@ -2,7 +2,7 @@ package br.com.joaovq.crm.manager.data.service;
 
 import br.com.joaovq.crm.manager.data.models.Customer;
 import br.com.joaovq.crm.manager.data.repository.CustomerRepository;
-import br.com.joaovq.crm.manager.service.CustomerService;
+import br.com.joaovq.crm.manager.service.customer.CustomerService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

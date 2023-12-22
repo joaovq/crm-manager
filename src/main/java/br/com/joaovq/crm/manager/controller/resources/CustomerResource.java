@@ -2,8 +2,8 @@ package br.com.joaovq.crm.manager.controller.resources;
 
 import br.com.joaovq.crm.manager.data.models.Address;
 import br.com.joaovq.crm.manager.data.models.Customer;
-import br.com.joaovq.crm.manager.service.AddressUseCase;
-import br.com.joaovq.crm.manager.service.CustomerUseCase;
+import br.com.joaovq.crm.manager.service.address.AddressUseCase;
+import br.com.joaovq.crm.manager.service.customer.CustomerUseCase;
 import br.com.joaovq.crm.manager.controller.request.CustomerCreateRequest;
 import br.com.joaovq.crm.manager.controller.response.CustomerResponse;
 import jakarta.validation.Valid;

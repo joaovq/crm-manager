@@ -1,4 +1,4 @@
-package br.com.joaovq.crm.manager.service;
+package br.com.joaovq.crm.manager.service.address;
 
 import br.com.joaovq.crm.manager.data.models.Address;
 import br.com.joaovq.crm.manager.data.repository.AddressRepository;

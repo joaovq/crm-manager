@@ -2,7 +2,7 @@ package br.com.joaovq.crm.manager.controller.handler;
 
 import br.com.joaovq.crm.manager.core.exception.CustomerNotFoundException;
 import br.com.joaovq.crm.manager.core.utils.ExceptionHandlerResponse;
-import br.com.joaovq.crm.manager.service.CustomerService;
+import br.com.joaovq.crm.manager.service.customer.CustomerService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

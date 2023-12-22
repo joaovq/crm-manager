@@ -1,4 +1,4 @@
-package br.com.joaovq.crm.manager.service;
+package br.com.joaovq.crm.manager.service.customer;
 
 import br.com.joaovq.crm.manager.core.exception.CustomerNotFoundException;
 import br.com.joaovq.crm.manager.data.models.Customer;
@@ -6,6 +6,8 @@ import br.com.joaovq.crm.manager.data.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -28,6 +30,8 @@ public class CustomerService implements CustomerUseCase {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('permission:read')")
+    @PostAuthorize("returnObject.owner == authentication.name")
     public Customer getCustomerById(UUID id) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
         return optionalCustomer.orElseThrow(CustomerNotFoundException::new);
