@@ -4,6 +4,8 @@ import br.com.joaovq.crm.manager.data.models.Customer;
 import br.com.joaovq.crm.manager.data.repository.CustomerRepository;
 import org.assertj.core.api.Assertions;
 import org.hibernate.query.Page;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,24 +29,32 @@ public class CustomerServiceTest {
     @InjectMocks
     private CustomerService customerService;
 
-    @Test
-    void shouldReturnListCustomers() {
+    @Nested
+    class listCustomers {
+        @Test
+        @DisplayName("Should return customers list")
+        void shouldReturnListCustomers() {
 //        given
-        when(customerRepository.findAll((Pageable) any()))
-                .thenReturn(new PageImpl<Customer>(new ArrayList<>()));
+            when(customerRepository.findAll((Pageable) any()))
+                    .thenReturn(new PageImpl<Customer>(new ArrayList<>()));
 //        when
-        var customers = customerService.listAllCustomers(Pageable.ofSize(2));
+            var customers = customerService.listAllCustomers(Pageable.ofSize(2));
 //        then
-        Assertions.assertThat(customers.getContent()).isEmpty();
+            Assertions.assertThat(customers.getContent()).isEmpty();
+        }
     }
 
-    @Test
-    void shouldCustomerReturnVoid() {
-        //        given
-        when(customerRepository.save(any(Customer.class))).thenReturn(new Customer());
-        //        when
-        var customer = customerService.createCustomer(new Customer());
+    @Nested
+    class getCustomerById {
+        @Test
+        @DisplayName("Should return customer by id")
+        void shouldCustomerReturnVoid() {
+            //        given
+            when(customerRepository.save(any(Customer.class))).thenReturn(new Customer());
+            //        when
+            var customer = customerService.createCustomer(new Customer());
 //        then
-        Assertions.assertThat(customer).isNotNull();
+            Assertions.assertThat(customer).isNotNull();
+        }
     }
 }
