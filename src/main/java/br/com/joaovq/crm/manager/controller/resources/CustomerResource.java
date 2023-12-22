@@ -1,11 +1,11 @@
-package br.com.joaovq.crm.manager.controller;
+package br.com.joaovq.crm.manager.controller.resources;
 
 import br.com.joaovq.crm.manager.data.models.Address;
 import br.com.joaovq.crm.manager.data.models.Customer;
-import br.com.joaovq.crm.manager.data.service.AddressUseCase;
-import br.com.joaovq.crm.manager.data.service.CustomerUseCase;
-import br.com.joaovq.crm.manager.domain.request.CustomerCreateRequest;
-import br.com.joaovq.crm.manager.domain.response.CustomerResponse;
+import br.com.joaovq.crm.manager.service.AddressUseCase;
+import br.com.joaovq.crm.manager.service.CustomerUseCase;
+import br.com.joaovq.crm.manager.controller.request.CustomerCreateRequest;
+import br.com.joaovq.crm.manager.controller.response.CustomerResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

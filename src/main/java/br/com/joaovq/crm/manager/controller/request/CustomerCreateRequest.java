@@ -1,4 +1,4 @@
-package br.com.joaovq.crm.manager.domain.request;
+package br.com.joaovq.crm.manager.controller.request;
 
 import br.com.joaovq.crm.manager.data.models.Address;
 import br.com.joaovq.crm.manager.data.models.Customer;

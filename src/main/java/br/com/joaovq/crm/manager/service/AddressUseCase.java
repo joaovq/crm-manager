@@ -1,4 +1,4 @@
-package br.com.joaovq.crm.manager.data.service;
+package br.com.joaovq.crm.manager.service;
 
 import br.com.joaovq.crm.manager.data.models.Address;
 

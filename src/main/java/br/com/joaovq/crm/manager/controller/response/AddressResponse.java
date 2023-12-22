@@ -1,4 +1,4 @@
-package br.com.joaovq.crm.manager.domain.response;
+package br.com.joaovq.crm.manager.controller.response;
 
 import br.com.joaovq.crm.manager.data.models.Address;
 
