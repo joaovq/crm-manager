@@ -2,8 +2,8 @@ package br.com.joaovq.crm.manager.data.service;
 
 import br.com.joaovq.crm.manager.data.models.Customer;
 import br.com.joaovq.crm.manager.data.repository.CustomerRepository;
+import br.com.joaovq.crm.manager.service.CustomerService;
 import org.assertj.core.api.Assertions;
-import org.hibernate.query.Page;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -18,6 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.ArrayList;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
@@ -35,8 +36,8 @@ public class CustomerServiceTest {
         @DisplayName("Should return customers list")
         void shouldReturnListCustomers() {
 //        given
-            when(customerRepository.findAll((Pageable) any()))
-                    .thenReturn(new PageImpl<Customer>(new ArrayList<>()));
+            doReturn(new PageImpl<Customer>(new ArrayList<>()))
+                    .when(customerRepository).findAll((Pageable) any());
 //        when
             var customers = customerService.listAllCustomers(Pageable.ofSize(2));
 //        then
