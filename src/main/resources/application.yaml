@@ -1,3 +1,5 @@
+files:
+  upload-dir: /upload
 server:
   port: ${PORT:9456}
 spring:
