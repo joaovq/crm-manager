@@ -11,15 +11,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RestController
-@RequestMapping("v1/token")
+@RequestMapping("v1")
 public class AuthController {
 
     private final AuthService authUseCase;
@@ -30,8 +28,15 @@ public class AuthController {
         this.tokenService = tokenService;
     }
 
+    @Operation(summary = "See your profile user")
+    @GetMapping("profile")
+    public ResponseEntity<Authentication> profile() {
+        var sc = SecurityContextHolder.getContext();
+        return ResponseEntity.ok(sc.getAuthentication());
+    }
+
     @Operation(summary = "Sign In user in Application")
-    @PostMapping
+    @PostMapping("token")
     public ResponseEntity<TokenResponse> token(@Valid @RequestBody SignInRequest tokenRequest) {
         Authentication authenticate = authUseCase.authenticate(tokenRequest.username(), tokenRequest.password());
         String generatedToken = tokenService.generateToken((User) authenticate.getPrincipal());
@@ -39,7 +44,7 @@ public class AuthController {
     }
 
     @Operation(summary = "Sign up user in Application")
-    @PostMapping("register")
+    @PostMapping("token/register")
     public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest req) {
         User register = authUseCase.register(req);
         return ResponseEntity.created(URI.create("token")).body(UserResponse.toResponse(register));
