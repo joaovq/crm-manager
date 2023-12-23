@@ -2,6 +2,7 @@ package br.com.joaovq.crm.manager.core.configuration;
 
 
 import br.com.joaovq.crm.manager.core.security.SecurityFilter;
+import br.com.joaovq.crm.manager.data.models.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
@@ -46,16 +48,20 @@ public class WebSecurityConfiguration {
                         .ignoringRequestMatchers("/h2-console/**").disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(manager -> manager
-                        .requestMatchers("/v1/api-docs/**", "/swagger-ui/**", "/h2-console/**")
-                        .permitAll()
-                        .requestMatchers(HttpMethod.POST, "/v1/token", "/v1/token/register")
-                        .permitAll()
-                        .requestMatchers(HttpMethod.GET, "/v1/customer")
-                        .hasAuthority("read")
-                        .requestMatchers(HttpMethod.POST, "/v1/customer")
-                        .hasAuthority("write")
-                        .anyRequest()
-                        .authenticated()
+                                .requestMatchers("/v1/api-docs/**", "/swagger-ui/**", "/h2-console/**")
+                                .permitAll()
+                                .requestMatchers(HttpMethod.POST, "/v1/token", "/v1/token/register")
+                                .permitAll()
+                                .requestMatchers(HttpMethod.GET, "/v1/customer")
+                                .hasRole(UserRole.USER.name())
+//                              .hasAuthority("read")
+                                .requestMatchers(HttpMethod.POST, "/v1/customer")
+                                .hasRole(UserRole.ADMIN.name())
+//                                .hasAuthority("write")
+                                .requestMatchers("/v1/profile")
+                                .authenticated()
+                                .anyRequest()
+                                .authenticated()
                 )
 //                .oauth2ResourceServer(
 //        oauth2 -> oauth2.jwt(Customizer.withDefaults())
